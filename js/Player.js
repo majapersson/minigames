@@ -8,6 +8,7 @@ class Player {
     this.height = player.height;
     this.color = color;
     this.speed = player.speed;
+    this.score = 0;
   }
 
   draw() {
@@ -20,9 +21,18 @@ class Player {
     ctx.fill();
   }
 
+  updatePosition() {
+    const { x, y, width, height } = this;
+    this.top = y - height / 2;
+    this.bottom = y + height / 2;
+    this.left = x;
+    this.right = x + width;
+  }
+
   move(direction) {
-    const hitsTop = this.y - this.height / 2 < 0;
-    const hitsBottom = this.y + this.height / 2 > window.innerHeight;
+    this.updatePosition();
+    const hitsTop = this.top < 0;
+    const hitsBottom = this.bottom > window.innerHeight;
 
     if (hitsTop) {
       this.y = 0 + this.height / 2;

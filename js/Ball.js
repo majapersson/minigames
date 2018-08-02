@@ -22,21 +22,12 @@ class Ball {
     ctx.fill();
   }
 
-  move() {
-    const bounceX =
-      this.x - this.radius <= 0 || this.x + this.radius >= window.innerWidth;
-    const bounceY =
-      this.y - this.radius <= 0 || this.y + this.radius >= window.innerHeight;
-    if (bounceX) {
-      this.velocity.x = -this.velocity.x;
-    }
-
-    if (bounceY) {
-      this.velocity.y = -this.velocity.y;
-    }
-
-    this.x = this.x + this.velocity.x;
-    this.y = this.y + this.velocity.y;
+  updatePosition() {
+    const { x, y, radius } = this;
+    this.left = x - radius;
+    this.right = x + radius;
+    this.top = y - radius;
+    this.bottom = y + radius;
   }
 }
 
