@@ -9,16 +9,15 @@ class Player {
     this.color = color;
     this.speed = player.speed;
     this.score = 0;
+    this.canvas = document.querySelector("canvas");
+    this.ctx = this.canvas.getContext("2d");
   }
 
   draw() {
-    const canvas = document.querySelector("canvas");
-    const ctx = canvas.getContext("2d");
-
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.rect(this.x, this.y - this.height / 2, this.width, this.height);
-    ctx.fill();
+    this.ctx.beginPath();
+    this.ctx.fillStyle = this.color;
+    this.ctx.rect(this.x, this.y - this.height / 2, this.width, this.height);
+    this.ctx.fill();
   }
 
   updatePosition() {
@@ -32,14 +31,14 @@ class Player {
   move(direction) {
     this.updatePosition();
     const hitsTop = this.top < 0;
-    const hitsBottom = this.bottom > window.innerHeight;
+    const hitsBottom = this.bottom > this.canvas.height;
 
     if (hitsTop) {
       this.y = 0 + this.height / 2;
       return;
     }
     if (hitsBottom) {
-      this.y = window.innerHeight - this.height / 2;
+      this.y = this.canvas.height - this.height / 2;
       return;
     }
 

@@ -1,10 +1,10 @@
 export const player = {
-  height: 50,
-  width: 5,
+  height: 100,
+  width: 10,
   speed: 5
 };
 
 export const ball = {
-  radius: 10,
+  radius: 20,
   speed: 5
 };
