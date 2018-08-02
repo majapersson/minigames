@@ -7,6 +7,7 @@ class Player {
     this.width = player.width;
     this.height = player.height;
     this.color = color;
+    this.speed = player.speed;
   }
 
   draw() {
@@ -19,8 +20,22 @@ class Player {
     ctx.fill();
   }
 
-  moveUp() {
-    this.y = this.y + 1;
+  move(direction) {
+    const hitsTop = this.y - this.height / 2 < 0;
+    const hitsBottom = this.y + this.height / 2 > window.innerHeight;
+
+    if (hitsTop) {
+      this.y = 0 + this.height / 2;
+      return;
+    }
+    if (hitsBottom) {
+      this.y = window.innerHeight - this.height / 2;
+      return;
+    }
+
+    if (direction === "up") this.y -= this.speed;
+    else this.y += this.speed;
+
     this.draw();
   }
 }

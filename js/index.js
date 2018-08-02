@@ -21,17 +21,30 @@ const playerTwo = new Player(
 );
 
 playerOne.keys = { up: 87, down: 83 };
-// playerTwo.keys = { up: 38, down: 40 };
+playerTwo.keys = { up: 38, down: 40 };
 
-ball.draw();
-playerOne.draw();
-playerTwo.draw();
-
-function animationLoop() {
+(function animationLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ball.move();
   ball.draw();
-}
-window.requestAnimationFrame(animationLoop);
+
+  if (keymap[`${playerOne.keys.up}`]) {
+    playerOne.move("up");
+  } else if (keymap[`${playerOne.keys.down}`]) {
+    playerOne.move("down");
+  }
+
+  if (keymap[`${playerTwo.keys.up}`]) {
+    playerTwo.move("up");
+  } else if (keymap[`${playerTwo.keys.down}`]) {
+    playerTwo.move("down");
+  }
+
+  playerOne.draw();
+  playerTwo.draw();
+
+  window.requestAnimationFrame(animationLoop);
+})();
 
 window.addEventListener("keydown", e => {
   const key = e.keyCode.toString();

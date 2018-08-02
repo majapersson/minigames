@@ -7,8 +7,8 @@ class Ball {
     this.radius = ball.radius;
     this.color = color;
     this.velocity = {
-      x: ball.speed,
-      y: ball.speed
+      x: Math.random() < 0.5 ? ball.speed : -ball.speed,
+      y: Math.random() < 0.5 ? ball.speed : -ball.speed
     };
   }
 
@@ -23,18 +23,16 @@ class Ball {
   }
 
   move() {
-    if (
-      this.x + this.radius <= 0 ||
-      this.x - this.radius >= window.innerWidth
-    ) {
-      this.velocity.x = !this.velocity.x;
+    const bounceX =
+      this.x - this.radius <= 0 || this.x + this.radius >= window.innerWidth;
+    const bounceY =
+      this.y - this.radius <= 0 || this.y + this.radius >= window.innerHeight;
+    if (bounceX) {
+      this.velocity.x = -this.velocity.x;
     }
 
-    if (
-      this.y - this.radius <= 0 ||
-      this.y + this.radius >= window.innerHeight
-    ) {
-      this.velocity.y = !this.velocity.y;
+    if (bounceY) {
+      this.velocity.y = -this.velocity.y;
     }
 
     this.x = this.x + this.velocity.x;
