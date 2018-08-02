@@ -9,7 +9,7 @@ const info = document.querySelector(".info");
 
 canvas.height = window.innerHeight * 2;
 canvas.width = window.innerWidth * 2;
-canvas.style.height = `${canvas.height / 2}px`;
+canvas.style.height = `${canvas.height / 2 - 5}px`;
 canvas.style.width = `${canvas.width / 2}px`;
 const middleX = canvas.width / 2;
 const middleY = canvas.height / 2;
