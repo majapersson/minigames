@@ -22,16 +22,88 @@
       font-family: sans-serif;
       font-size: 60vh;
     }
-    .playerOne {}
     .playerTwo {
       border-left: 1px solid rgba(255, 255, 255, 0.3);
       left: 50%;
     }
+
+    .info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 70%;
+
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .info.hide {
+      display: none;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .red {
+      width: 50%;
+    }
+    .red h2 {
+      color: salmon;
+    }
+    .blue {
+      width: 50%;
+    }
+    .blue h2 {
+      color: skyblue;
+    }
+
+    ul {
+      list-style: none;
+      text-align: left;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+
+      border: 2px solid white;
+      background-color: transparent;
+      color: white;
+      text-transform: uppercase;
+      transition: 150ms ease-in-out;
+    }
+    button:hover {
+      color: black;
+      background-color: white;
+    }
   </style>
 </head>
 <body>
-  <span class="score playerOne">0</span>
-  <span class="score playerTwo">0</span>
+  <span class="score playerOne"></span>
+  <span class="score playerTwo"></span>
+  <div class="info">
+    <h1>Pong</h1>
+    <div class="controls">
+      <div class="red">
+        <h2>Red Player</h2>
+        <ul>
+          <li>&uarr; : W-key</li>
+          <li>&darr; : S-key</li>
+        </ul>
+      </div>
+      <div class="blue">
+        <h2>Blue Player</h2>
+        <ul>
+          <li>&uarr; : Up-key</li>
+          <li>&darr; : Down-key</li>
+        </ul>
+      </div>
+    </div>
+    <button class="start">Start game</button>
+  </div>
   <canvas></canvas>
 
   <script src="./index.js" charset="utf-8"></script>

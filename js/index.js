@@ -5,6 +5,8 @@ import Ball from "./Ball.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+const info = document.querySelector(".info");
+
 canvas.height = window.innerHeight - 5;
 canvas.width = window.innerWidth;
 const middleX = window.innerWidth / 2;
@@ -54,21 +56,20 @@ function game(frame) {
   if (outLeft) {
     playerTwo.score++;
     window.cancelAnimationFrame(frame);
-    score();
+    init();
   }
   if (outRight) {
     playerOne.score++;
     window.cancelAnimationFrame(frame);
-    score();
+    init();
   }
 }
 
-function animationLoop() {
+function animationLoop(interval) {
   const frame = window.requestAnimationFrame(animationLoop);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   game(frame);
-  ball.draw();
 
   if (keymap[`${playerOne.keys.up}`]) {
     playerOne.move("up");
@@ -82,15 +83,48 @@ function animationLoop() {
     playerTwo.move("down");
   }
 
+  ball.draw();
   playerOne.draw();
   playerTwo.draw();
+
+  window.addEventListener("keydown", e => {
+    if (e.keyCode === 27) {
+      window.cancelAnimationFrame(frame);
+      clearInterval(interval);
+      info.classList.remove("hide");
+    }
+  });
 }
 
-function score() {
+function init() {
   const playerOneScore = document.querySelector(".playerOne");
   const playerTwoScore = document.querySelector(".playerTwo");
   playerOneScore.textContent = playerOne.score;
   playerTwoScore.textContent = playerTwo.score;
+  let count = 3;
+  ctx.font = "50px sans-serif";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+  window.addEventListener("keydown", e => {
+    ctx.clearRect(middleX - 50, middleY - 50, 100, 100);
+
+    if (e.keyCode === 27) {
+      clearInterval(interval);
+      info.classList.remove("hide");
+    }
+  });
+
+  const interval = setInterval(() => {
+    ctx.fillStyle = "white";
+    ctx.clearRect(middleX - 50, middleY - 50, 100, 100);
+    if (count === 0) {
+      ball.reset(middleX, middleY);
+      animationLoop(interval);
+      clearInterval(interval);
+    }
+    ctx.fillText(count, middleX, middleY);
+    count--;
+  }, 1000);
 }
 
 window.addEventListener("keydown", e => {
@@ -107,4 +141,11 @@ window.addEventListener("keyup", e => {
   }
 });
 
-animationLoop();
+const start = document.querySelector(".start");
+
+start.addEventListener("click", () => {
+  info.classList.add("hide");
+  playerOne.draw();
+  playerTwo.draw();
+  init();
+});

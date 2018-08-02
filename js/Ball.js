@@ -12,6 +12,15 @@ class Ball {
     };
   }
 
+  reset(x, y) {
+    this.x = x;
+    this.y = y;
+    this.velocity = {
+      x: Math.random() < 0.5 ? ball.speed : -ball.speed,
+      y: Math.random() < 0.5 ? ball.speed : -ball.speed
+    };
+  }
+
   draw() {
     const canvas = document.querySelector("canvas");
     const ctx = canvas.getContext("2d");
